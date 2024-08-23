@@ -1,0 +1,100 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+body {
+  background-color: #343f46;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+a {
+  color: blue;
+  text-decoration: none; /* no underline */
+}
+strong {
+  color: #eef1ec;
+}
+
+.flex-row {
+  display: flex;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  min-height: 10vh;
+  padding: 0px 5vw 0px 5vw;
+}
+
+.login-buttons {
+  @extend .flex-row;
+  gap: 10px;
+  align-items: center;
+}
+
+#post-button {
+  background-color: #20272b;
+  padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+  border-radius: 1rem;
+  color: white;
+}
+
+.messages {
+  flex: 1;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(15vw, 100%), 1fr));
+  padding: 1rem;
+}
+
+.message {
+  color: rgb(180, 181, 192);
+  height: 200px;
+  background-color: #20272b;
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+
+form {
+  color: #eef1ec;
+  background-color: #343f46;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  input {
+    background-color: #20272b;
+    border: 0px;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    color: #eef1ec;
+  }
+  flex: 1;
+  gap: 10px;
+}
+
+.input-field {
+  @extend .flex-col;
+  gap: 5px;
+  align-items: center;
+}
+
+.account-button {
+  @extend #post-button;
+}
+
+#message {
+  background-color: #20272b;
+  color: #eef1ec;
+  min-width: 20vw;
+  min-height: 15vh;
+  resize: none;
+  border: 0px;
+}

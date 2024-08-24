@@ -1,16 +1,10 @@
 import { Strategy as LocalStrategy } from "passport-local";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+const db = require("./db/queries");
 var bcrypt = require("bcryptjs");
 
 const strategy = new LocalStrategy(async (username, password, done) => {
   try {
-    const user = await prisma.user.findUnique({
-      where: {
-        username: username,
-      },
-    });
-
+    const user = await db.findUser(username);
     if (!user) {
       return done(null, false, { message: "Incorrect username" });
     }

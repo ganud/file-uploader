@@ -5,8 +5,15 @@ var bcrypt = require("bcryptjs");
 import passport = require("passport");
 const db = require("../db/queries");
 
+// Render the index
+exports.index = asyncHandler(async (req: Request, res: Response) => {
+  console.log(req.user);
+  res.render("index", { errors: false });
+});
+
 // Render the user login form on GET
 exports.user_login_get = asyncHandler(async (req: Request, res: Response) => {
+  console.log(req.user);
   res.render("login", { errors: false });
 });
 
@@ -15,6 +22,7 @@ exports.user_signup_get = asyncHandler(async (req: Request, res: Response) => {
   res.render("signup", { errors: false });
 });
 
+// Render the user signup form on POST
 exports.user_create_post = [
   // Sanitize user data
   body("username", "Username must not be empty.")
@@ -63,12 +71,14 @@ exports.user_create_post = [
   }),
 ];
 
-exports.user_login = asyncHandler(async (req: Request, res: Response) => {
-  passport.authenticate("local", {
-    failureRedirect: "/login",
-    successRedirect: "/",
-  })(req, res);
-});
+exports.user_login = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    passport.authenticate("local", {
+      failureRedirect: "/login",
+      successRedirect: "/",
+    })(req, res, next);
+  }
+);
 
 exports.user_logout = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {

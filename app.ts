@@ -1,5 +1,5 @@
 import express = require("express");
-import expressSession from "express-session";
+import session = require("express-session");
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import { PrismaClient } from "@prisma/client";
 import path = require("path");
@@ -11,8 +11,25 @@ const prisma = new PrismaClient();
 
 var app = express();
 
-passport.use(strategy);
+app.use(
+  session({
+    cookie: {
+      maxAge: 7 * 24 * 60 * 60 * 1000, //ms
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+    },
+    secret: "a santa at nasa",
+    resave: false,
+    saveUninitialized: false,
+    store: new PrismaSessionStore(new PrismaClient(), {
+      checkPeriod: 2 * 60 * 1000, //ms
+      dbRecordIdIsSessionId: true,
+      dbRecordIdFunction: undefined,
+    }),
+  })
+);
 
+passport.use(strategy);
 passport.serializeUser((user: any, done: DoneCallback) => {
   done(null, user.id);
 });
@@ -38,21 +55,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use("/", userRouter);
-app.use(
-  expressSession({
-    cookie: {
-      maxAge: 7 * 24 * 60 * 60 * 1000, // ms
-    },
-    secret: "a santa at nasa",
-    resave: true,
-    saveUninitialized: true,
-    store: new PrismaSessionStore(new PrismaClient(), {
-      checkPeriod: 2 * 60 * 1000, //ms
-      dbRecordIdIsSessionId: true,
-      dbRecordIdFunction: undefined,
-    }),
-  })
-);
+
 app.use(passport.session());
 
 app.listen(3000, () => console.log("app listening on port 3000!"));

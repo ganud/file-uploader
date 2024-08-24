@@ -3,12 +3,13 @@ const prisma = new PrismaClient();
 const db = require("./db/queries");
 
 async function main() {
-  await prisma.user.create({
-    data: {
-      username: "walter",
-      password: "hank",
-    },
-  });
+  console.log(
+    await prisma.user.findUnique({
+      where: {
+        id: 4,
+      },
+    })
+  );
 }
 
 main();

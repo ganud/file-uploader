@@ -7,13 +7,11 @@ const db = require("../db/queries");
 
 // Render the index
 exports.index = asyncHandler(async (req: Request, res: Response) => {
-  console.log(req.user);
   res.render("index", { errors: false });
 });
 
 // Render the user login form on GET
 exports.user_login_get = asyncHandler(async (req: Request, res: Response) => {
-  console.log(req.user);
   res.render("login", { errors: false });
 });
 
@@ -76,6 +74,7 @@ exports.user_login = asyncHandler(
     passport.authenticate("local", {
       failureRedirect: "/login",
       successRedirect: "/",
+      session: true,
     })(req, res, next);
   }
 );

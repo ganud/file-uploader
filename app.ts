@@ -8,19 +8,18 @@ const { strategy } = require("./localstrategy");
 import passport = require("passport");
 import { DoneCallback } from "passport";
 const prisma = new PrismaClient();
+var bodyParser = require("body-parser");
 
 var app = express();
 
+passport.use(strategy);
+
 app.use(
   session({
-    cookie: {
-      maxAge: 7 * 24 * 60 * 60 * 1000, //ms
-      secure: process.env.NODE_ENV === "production",
-      httpOnly: true,
-    },
-    secret: "a santa at nasa",
     resave: false,
-    saveUninitialized: false,
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
+    saveUninitialized: true,
+    secret: "a santa at nasa",
     store: new PrismaSessionStore(new PrismaClient(), {
       checkPeriod: 2 * 60 * 1000, //ms
       dbRecordIdIsSessionId: true,
@@ -29,7 +28,10 @@ app.use(
   })
 );
 
-passport.use(strategy);
+app.use(express.json());
+app.use(express.urlencoded({ extended: false })); // Serve static files from the 'public' directory
+app.use(passport.session());
+
 passport.serializeUser((user: any, done: DoneCallback) => {
   done(null, user.id);
 });
@@ -41,21 +43,16 @@ passport.deserializeUser(async (id: number, done: DoneCallback) => {
         id: id,
       },
     });
-
     done(null, user);
   } catch (err) {
     done(err);
   }
 });
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-// Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, "public")));
+// Note that path join middleware MUST be placed last, or authentication breaks for some reason
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use("/", userRouter);
-
-app.use(passport.session());
+app.use(express.static(path.join(__dirname, "public")));
 
 app.listen(3000, () => console.log("app listening on port 3000!"));

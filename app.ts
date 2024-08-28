@@ -1,18 +1,17 @@
 import express = require("express");
+import multer = require("multer");
 import session = require("express-session");
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import { PrismaClient } from "@prisma/client";
 import path = require("path");
 const userRouter = require("./routes/userRouter");
-const { strategy } = require("./localstrategy");
-import passport = require("passport");
-import { DoneCallback } from "passport";
-const prisma = new PrismaClient();
+const fileRouter = require("./routes/fileRouter");
+const { passport } = require("./localstrategy");
+const upload = multer({ dest: "uploads/" });
+
 var bodyParser = require("body-parser");
 
 var app = express();
-
-passport.use(strategy);
 
 app.use(
   session({
@@ -32,27 +31,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // Serve static files from the 'public' directory
 app.use(passport.session());
 
-passport.serializeUser((user: any, done: DoneCallback) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (id: number, done: DoneCallback) => {
-  try {
-    const user = await prisma.user.findUnique({
-      where: {
-        id: id,
-      },
-    });
-    done(null, user);
-  } catch (err) {
-    done(err);
-  }
-});
-
 // Note that path join middleware MUST be placed last, or authentication breaks for some reason
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use("/", userRouter);
+app.use("/", fileRouter);
+
 app.use(express.static(path.join(__dirname, "public")));
 
 app.listen(3000, () => console.log("app listening on port 3000!"));

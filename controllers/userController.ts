@@ -7,12 +7,12 @@ const db = require("../db/queries");
 
 // Render the index
 exports.index = asyncHandler(async (req: Request, res: Response) => {
-  res.render("index", { errors: false });
+  res.render("index", { errors: false, user: req.user });
 });
 
 // Render the user login form on GET
 exports.user_login_get = asyncHandler(async (req: Request, res: Response) => {
-  res.render("login", { errors: false });
+  res.render("login", { errors: false, user: req.user });
 });
 
 // Render the user signup form on GET

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style.css" type="text/css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/"><strong>Uno Drive</strong></a>
+      <div class="login-buttons">
+        <a href="/login"><strong>Log In</strong></a>
+        <a href="/sign-up"><strong>Sign Up</strong></a>
+      </div>
+    </div>
+    <hr />
+    <form action="/sign-up" method="post">
+      <h1>Sign Up</h1>
+      <div class="input-field">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" />
+      </div>
+      <div class="input-field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" />
+      </div>
+      <div class="input-field">
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" id="confirm_password" name="confirm_password" />
+      </div>
+      <button type="submit" class="account-button">
+        <strong>Sign In</strong>
+      </button>
+    </form>
+  </body>
+</html>

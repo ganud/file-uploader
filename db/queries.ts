@@ -21,7 +21,31 @@ async function createUser(username: string, password: string) {
   return;
 }
 
+// Expects req.user
+async function extractUser(user: any) {
+  const extractedUser = await prisma.user.findUnique({
+    where: {
+      id: user.id,
+    },
+  });
+
+  return extractedUser;
+}
+
+async function createFolder(folderName: string, id: number) {
+  const folder = await prisma.folder.create({
+    data: {
+      name: folderName,
+      userId: id,
+    },
+  });
+
+  return;
+}
+
 module.exports = {
   findUser,
   createUser,
+  extractUser,
+  createFolder,
 };

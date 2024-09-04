@@ -6,4 +6,6 @@ const upload = multer({ dest: "uploads/" });
 
 router.post("/upload", upload.single("egg"), fileController.upload);
 
+router.post("/new-folder", fileController.createFolder);
+
 module.exports = router;

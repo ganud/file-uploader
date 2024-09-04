@@ -1,5 +1,4 @@
 import express = require("express");
-import multer = require("multer");
 import session = require("express-session");
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import { PrismaClient } from "@prisma/client";
@@ -7,7 +6,6 @@ import path = require("path");
 const userRouter = require("./routes/userRouter");
 const fileRouter = require("./routes/fileRouter");
 const { passport } = require("./localstrategy");
-const upload = multer({ dest: "uploads/" });
 
 var bodyParser = require("body-parser");
 
@@ -28,7 +26,7 @@ app.use(
 );
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false })); // Serve static files from the 'public' directory
+app.use(express.urlencoded({ extended: true })); // Serve static files from the 'public' directory
 app.use(passport.session());
 
 // Note that path join middleware MUST be placed last, or authentication breaks for some reason

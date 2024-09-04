@@ -7,6 +7,7 @@ const db = require("../db/queries");
 
 // Render the index
 exports.index = asyncHandler(async (req: Request, res: Response) => {
+  console.log(req.user);
   res.render("index", { errors: false, user: req.user });
 });
 

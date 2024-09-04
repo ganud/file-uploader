@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style.css" type="text/css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/"><strong>Uno Drive</strong></a>
+      <div class="login-buttons">
+        <a href="/login"><strong>Log In</strong></a>
+        <a href="/sign-up"><strong>Sign Up</strong></a>
+      </div>
+    </div>
+    <hr />
+    <form action="/new-folder" method="post">
+      <h1>Create new folder</h1>
+      <div class="input-field">
+        <label for="folder_name">Folder name</label>
+        <input type="text" id="folder_name" name="folder_name" />
+      </div>
+      <button type="submit" class="account-button">
+        <strong>Create Folder</strong>
+      </button>
+    </form>
+  </body>
+</html>

@@ -11,12 +11,12 @@ exports.upload = asyncHandler(async (req: Request, res: Response) => {
 // Post request for new folder
 exports.createFolder = asyncHandler(async (req: Request, res: Response) => {
   if (req.user === undefined) {
-    res.render("/login");
+    res.render("login");
   } else {
-    const user = await db.extractUser(req.user);
-    console.log(req.body);
-    console.log(user.id);
-    const folder = await db.createFolder(req.body.folder_name, user.id);
-    res.render("index", { user: req.user });
+    await db.createFolder(req.body.folder_name, req.user.id);
+
+    // Render index with saved folders and newly created folder
+    const folders = await db.getFolders(req.user.id);
+    res.render("index", { user: req.user, folders: folders });
   }
 });

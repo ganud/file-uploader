@@ -19,6 +19,21 @@
       </div>
     </div>
     <hr />
+    <!-- End of header -->
+
+    <!-- Shows accompany messages for folders if logged in -->
+    <% if (user) { %>
+       <h1>hei</h1>
+       <% if (folders) { %>
+        <ul>
+          <% folders.forEach((folder) => { %>
+              <li><a href="/folder/<%= folder.id %>"><%= folder.name %></a></li>
+          <% }); %>
+        </ul>
+      <% } else { %>
+         <p>You have no folders.</p>
+      <% } %>      
+    <% } %>
     <form action="/new-folder" method="post">
       <div class="input-field">
         <label for="folder_name">New folder</label>

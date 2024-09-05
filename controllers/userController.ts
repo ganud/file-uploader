@@ -7,8 +7,11 @@ const db = require("../db/queries");
 
 // Render the index
 exports.index = asyncHandler(async (req: Request, res: Response) => {
-  console.log(req.user);
-  res.render("index", { errors: false, user: req.user });
+  let folders = null;
+  if (req.user) {
+    folders = await db.getFolders(req.user.id);
+  }
+  res.render("index", { errors: false, user: req.user, folders: folders });
 });
 
 // Render the user login form on GET
@@ -91,3 +94,11 @@ exports.user_logout = asyncHandler(
     });
   }
 );
+
+declare global {
+  namespace Express {
+    interface User {
+      id: string;
+    }
+  }
+}

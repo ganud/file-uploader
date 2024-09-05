@@ -39,8 +39,21 @@ async function createFolder(folderName: string, id: number) {
       userId: id,
     },
   });
-
   return;
+}
+
+async function getFolders(id: number) {
+  // Should not return anything if the user isn't logged in
+  if (id === undefined) {
+    return null;
+  }
+
+  const folders = await prisma.folder.findMany({
+    where: {
+      userId: id,
+    },
+  });
+  return folders;
 }
 
 module.exports = {
@@ -48,4 +61,5 @@ module.exports = {
   createUser,
   extractUser,
   createFolder,
+  getFolders,
 };

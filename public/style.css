@@ -65,7 +65,8 @@ strong {
   padding: 0.5rem;
 }
 
-form {
+form,
+.container {
   color: #eef1ec;
   background-color: #343f46;
   padding: 20px;
@@ -75,7 +76,8 @@ form {
   flex: 1;
   gap: 10px;
 }
-form input {
+form input,
+.container input {
   background-color: #20272b;
   border: 0px;
   padding: 0.5rem;

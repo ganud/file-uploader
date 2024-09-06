@@ -56,10 +56,36 @@ async function getFolders(id: number) {
   return folders;
 }
 
+// Return folder row given id
+async function findFolder(id: number) {
+  const folder = await prisma.folder.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  return folder;
+}
+
+// Update folder given id and name
+async function updateFolder(id: number, name: string) {
+  await prisma.folder.update({
+    where: {
+      id: id,
+    },
+    data: {
+      name: name,
+    },
+  });
+
+  return;
+}
+
 module.exports = {
   findUser,
   createUser,
   extractUser,
   createFolder,
   getFolders,
+  findFolder,
+  updateFolder,
 };

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../style.css" type="text/css" />
+    <link rel="stylesheet" href="/style.css" type="text/css" />
     <title>Document</title>
   </head>
   <body>
@@ -15,19 +15,15 @@
       </div>
     </div>
     <hr />
-    <!-- Header ends here -->
-    <div class="container">
-      <h1><%= folder.name %></h1>
-      <p>File 1</p>
-      <p>File 2</p>
+    <form action="/folder/<%= folder.id %>/update" method="post">
+      <h1>Rename Folder</h1>
+      <div class="input-field">
+        <label for="folder_name">New name</label>
+        <input type="text" id="folder_name" name="folder_name" />
+      </div>
       <button type="submit" class="account-button">
-        <a href="/folder/<%= folder.id %>/update"
-          ><strong>Rename Folder</strong></a
-        >
+        <strong>Confirm</strong>
       </button>
-      <button type="submit" class="account-button">
-        <strong>Delete Folder</strong>
-      </button>
-    </div>
+    </form>
   </body>
 </html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" type="text/css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/"><strong>Uno Drive</strong></a>
+      <div class="login-buttons">
+        <a href="/login"><strong>Log In</strong></a>
+        <a href="/sign-up"><strong>Sign Up</strong></a>
+      </div>
+    </div>
+    <hr />
+    <form action="/folder/<%= folder.id %>/delete" method="post">
+      <h1>Delete Folder <%= folder.name %></h1>
+      <button type="submit" class="account-button">
+        <strong>Confirm</strong>
+      </button>
+    </form>
+  </body>
+</html>

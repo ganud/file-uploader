@@ -23,9 +23,12 @@
   "dependencies": {
     "@prisma/client": "^5.18.0",
     "@quixo3/prisma-session-store": "^3.1.13",
+    "@supabase/supabase-js": "^2.45.4",
     "@types/multer": "^1.4.12",
+    "base64-arraybuffer": "^1.0.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-async-handler": "^1.2.0",

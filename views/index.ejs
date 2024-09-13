@@ -23,34 +23,39 @@
 
     <!-- Shows accompany messages for folders if logged in -->
     <% if (user) { %>
-       <h1>hei</h1>
-       <% if (folders) { %>
-        <ul>
-          <% folders.forEach((folder) => { %>
-              <li><a href="/folder/<%= folder.id %>"><%= folder.name %></a></li>
-          <% }); %>
-        </ul>
-      <% } else { %>
-         <p>You have no folders.</p>
-      <% } %>      
-    <% } %>
+    <h1>hei</h1>
+    <% if (folders) { %>
+    <ul>
+      <% folders.forEach((folder) => { %>
+      <li><a href="/folder/<%= folder.id %>"><%= folder.name %></a></li>
+      <% }); %>
+    </ul>
+    <% } else { %>
+    <p>You have no folders.</p>
+    <% } %> <% } %>
     <form action="/new-folder" method="post">
       <div class="input-field">
         <label for="folder_name">New folder</label>
-        <input type="text" class="account-button" id="folder_name" name="folder_name">
+        <input
+          type="text"
+          class="account-button"
+          id="folder_name"
+          name="folder_name"
+        />
         <button type="submit" class="account-button">Create new folder</button>
       </div>
     </form>
     <form action="/upload" method="post" enctype="multipart/form-data">
       <h1>Home</h1>
       <% if (user) {%>
-        <div class="input-field">
-          <label for="egg">Upload Files</label>
-          <input type="file" class="account-button" name="egg">
-        </div>
-        <button type="submit" class="account-button">Upload</button>
-        <% } else { %>
-        <a href="/login"><strong>Please Log In</strong></a>
+      <div class="input-field">
+        <label for="egg">Upload Files</label>
+        <input type="file" class="account-button" name="egg" />
+      </div>
+      <button type="submit" class="account-button">Upload</button>
+      <% } else { %>
+      <a href="/login"><strong>Please Log In</strong></a>
       <%}%>
+    </form>
   </body>
 </html>

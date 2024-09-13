@@ -18,15 +18,30 @@
     <!-- Header ends here -->
     <div class="container">
       <h1><%= folder.name %></h1>
-      <p>File 1</p>
-      <p>File 2</p>
+      <% files.forEach((file) => { %>
+      <p><a href="<%= file.url %>"><%= file.filename %></a></p>
+      <% }); %>
+      <form
+        action="/folder/<%= folder.id %>/upload"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <h1>Home</h1>
+        <div class="input-field">
+          <label for="files">Upload Files</label>
+          <input type="file" class="account-button" name="files" />
+        </div>
+        <button type="submit" class="account-button">Upload</button>
+      </form>
       <button type="submit" class="account-button">
         <a href="/folder/<%= folder.id %>/update"
           ><strong>Rename Folder</strong></a
         >
       </button>
       <button type="submit" class="account-button">
-        <strong>Delete Folder</strong>
+        <a href="/folder/<%= folder.id %>/delete"
+          ><strong>Delete Folder</strong></a
+        >
       </button>
     </div>
   </body>

@@ -80,6 +80,36 @@ async function updateFolder(id: number, name: string) {
   return;
 }
 
+// Delete folder given id
+async function deleteFolder(id: number) {
+  await prisma.folder.delete({
+    where: {
+      id: id,
+    },
+  });
+  return;
+}
+
+// Add file url to folder id
+async function addFile(url: string, folderId: number) {
+  const folder = await prisma.file.create({
+    data: {
+      url: url,
+      folderId: folderId,
+    },
+  });
+  return;
+}
+
+async function getFiles(id: number) {
+  const files = await prisma.file.findMany({
+    where: {
+      folderId: id,
+    },
+  });
+  return files;
+}
+
 module.exports = {
   findUser,
   createUser,
@@ -88,4 +118,7 @@ module.exports = {
   getFolders,
   findFolder,
   updateFolder,
+  deleteFolder,
+  addFile,
+  getFiles,
 };

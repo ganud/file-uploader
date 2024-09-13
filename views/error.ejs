@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" type="text/css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/"><strong>Uno Drive</strong></a>
+      <div class="login-buttons">
+        <% if (user) {%>
+        <a href="/log-out"><strong>Log Out</strong></a>
+        <% } else { %>
+        <a href="/login"><strong>Log In</strong></a>
+        <%}%>
+        <a href="/sign-up"><strong>Sign Up</strong></a>
+      </div>
+    </div>
+    <hr />
+    <!-- End of header -->
+
+    <p>You don't own this folder.</p>
+  </body>
+</html>

@@ -3,7 +3,6 @@ const router = express.Router();
 const fileController = require("../controllers/fileController");
 import multer = require("multer");
 const upload = multer();
-import { decode } from "base64-arraybuffer";
 
 router.post(
   "/folder/:id/upload",
@@ -22,5 +21,12 @@ router.post("/folder/:id/update", fileController.folder_update_post);
 router.get("/folder/:id/delete", fileController.folder_delete_get);
 
 router.post("/folder/:id/delete", fileController.folder_delete_post);
+
+router.get("/folder/:folder_id/file/:file_id", fileController.file_get);
+
+router.get(
+  "/folder/:folder_id/file/:file_id/download",
+  fileController.download
+);
 
 module.exports = router;

@@ -110,6 +110,14 @@ async function getFiles(id: number) {
   return files;
 }
 
+async function findFile(id: number) {
+  const file = await prisma.file.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  return file;
+}
 module.exports = {
   findUser,
   createUser,
@@ -121,4 +129,5 @@ module.exports = {
   deleteFolder,
   addFile,
   getFiles,
+  findFile,
 };

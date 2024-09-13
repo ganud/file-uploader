@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../style.css" type="text/css" />
+    <link rel="stylesheet" href="/style.css" type="text/css" />
     <title>Document</title>
   </head>
   <body>
@@ -19,7 +19,11 @@
     <div class="container">
       <h1><%= folder.name %></h1>
       <% files.forEach((file) => { %>
-      <p><a href="<%= file.url %>"><%= file.filename %></a></p>
+      <p>
+        <a href="/folder/<%= file.folderId %>/file/<%= file.id %>/"
+          ><%= file.filename %></a
+        >
+      </p>
       <% }); %>
       <form
         action="/folder/<%= folder.id %>/upload"

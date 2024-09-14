@@ -10,6 +10,8 @@ exports.index = asyncHandler(async (req: Request, res: Response) => {
   let folders = null;
   if (req.user) {
     folders = await db.getFolders(req.user.id);
+  } else {
+    res.redirect("/login");
   }
   res.render("index", { errors: false, user: req.user, folders: folders });
 });

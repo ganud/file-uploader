@@ -9,7 +9,6 @@ body {
   min-height: 100vh;
 }
 a {
-  color: blue;
   text-decoration: none; /* no underline */
 }
 strong {
@@ -98,4 +97,8 @@ form,
   min-height: 15vh;
   resize: none;
   border: 0px;
+}
+
+a {
+  color: #eef1ec;
 }

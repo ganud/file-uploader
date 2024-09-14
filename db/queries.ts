@@ -52,6 +52,9 @@ async function getFolders(id: number) {
     where: {
       userId: id,
     },
+    orderBy: {
+      name: "asc",
+    },
   });
   return folders;
 }
@@ -91,11 +94,12 @@ async function deleteFolder(id: number) {
 }
 
 // Add file url to folder id
-async function addFile(url: string, folderId: number) {
+async function addFile(url: string, folderId: number, size: number) {
   const folder = await prisma.file.create({
     data: {
       url: url,
       folderId: folderId,
+      size: size,
     },
   });
   return;
@@ -105,6 +109,9 @@ async function getFiles(id: number) {
   const files = await prisma.file.findMany({
     where: {
       folderId: id,
+    },
+    orderBy: {
+      uploadedAt: "desc",
     },
   });
   return files;

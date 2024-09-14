@@ -10,13 +10,19 @@
     <div class="header">
       <a href="/"><strong>Uno Drive</strong></a>
       <div class="login-buttons">
+        <% if (user) {%>
+        <a href="/log-out"><strong>Log Out</strong></a>
+        <% } else { %>
         <a href="/login"><strong>Log In</strong></a>
-        <a href="/sign-up"><strong>Sign Up</strong></a>
+        <%}%> <a href="/sign-up"><strong>Sign Up</strong></a>
       </div>
     </div>
     <hr />
     <div class="container">
-      <h1>File Name</h1>
+      <h1><%= file.filename %></h1>
+      <p><%= file.uploadedAt %></p>
+      <p><%= file.size %> Bytes</p>
+
       <button class="account-button">
         <a href="/folder/<%= file.folderId %>/file/<%= file.id %>/download"
           >Download</a

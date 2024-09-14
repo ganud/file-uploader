@@ -10,8 +10,11 @@
     <div class="header">
       <a href="/"><strong>Uno Drive</strong></a>
       <div class="login-buttons">
+        <% if (user) {%>
+        <a href="/log-out"><strong>Log Out</strong></a>
+        <% } else { %>
         <a href="/login"><strong>Log In</strong></a>
-        <a href="/sign-up"><strong>Sign Up</strong></a>
+        <%}%> <a href="/sign-up"><strong>Sign Up</strong></a>
       </div>
     </div>
     <hr />

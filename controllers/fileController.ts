@@ -28,12 +28,16 @@ exports.viewFolder = asyncHandler(async (req: Request, res: Response) => {
     let files = await db.getFiles(parseInt(req.params.id));
 
     // Compute filename from url for each file
-    files.forEach((file) => {
+    files.forEach((file: any) => {
       const split = file.url.split("/");
       file.filename = split[split.length - 1];
     });
 
-    res.render("folder", { user: req.user, folder: folder, files: files });
+    if (folder.userId !== parseInt(req.user.id)) {
+      res.render("error", { user: req.user });
+    } else {
+      res.render("folder", { user: req.user, folder: folder, files: files });
+    }
   }
 });
 
@@ -95,7 +99,7 @@ exports.folder_upload = asyncHandler(async (req: Request, res: Response) => {
       .from("user_files")
       .upload(
         `${req.params.id}/${req.file?.originalname}`,
-        decode(req.file.buffer.toString("base64")),
+        decode(req.file?.buffer?.toString("base64")!),
         {
           // contentType: "image/png",
         }
@@ -107,7 +111,7 @@ exports.folder_upload = asyncHandler(async (req: Request, res: Response) => {
     const url = file.data.publicUrl;
 
     try {
-      await db.addFile(url, parseInt(req.params.id));
+      await db.addFile(url, parseInt(req.params.id), req.file?.size);
     } catch (error) {
       console.log("No need to update database, file link already exists");
     }
@@ -128,8 +132,11 @@ exports.file_get = asyncHandler(async (req: Request, res: Response) => {
       res.render("error", { user: req.user });
     } else {
       const file = await db.findFile(parseInt(req.params.file_id));
+      const split = file.url.split("/");
+      file.filename = split[split.length - 1];
       res.render("file", {
         file: file,
+        user: req.user,
       });
     }
   }
@@ -146,6 +153,7 @@ exports.download = asyncHandler(async (req: Request, res: Response) => {
     if (folder.userId !== parseInt(req.user.id)) {
       res.render("error", { user: req.user });
     } else {
+      // Prompt file download
       const dbfile = await db.findFile(parseInt(req.params.file_id));
       https.get(dbfile.url, function (file) {
         const split = dbfile.url.split("/");
